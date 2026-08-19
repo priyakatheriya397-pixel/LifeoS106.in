@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LifeOS | Future City</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body:before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#693cff;
+    filter:blur(180px);
+    opacity:.20;
+    top:-200px;
+    left:-150px;
+    z-index:-2;
+}
+
+body:after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#00d9ff;
+    filter:blur(180px);
+    opacity:.16;
+    right:-200px;
+    bottom:-150px;
+    z-index:-2;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:17px 6%;
+
+    background:rgba(5,8,22,.75);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:26px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#00d9ff;
+}
+
+.nav-links{
+    display:flex;
+    gap:8px;
+}
+
+.nav-links a{
+    color:#aab6ce;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#00d9ff;
+    background:#ffffff0a;
+}
+
+.profile-btn{
+    background:linear-gradient(90deg,#00a9ff,#7040ff);
+    color:white!important;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    padding:140px 7% 70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:50px;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.status{
+    display:inline-block;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    color:#00d9ff;
+
+    background:#00d9ff0c;
+
+    border:1px solid #00d9ff25;
+
+    font-size:14px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(50px,7vw,82px);
+    line-height:.98;
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:linear-gradient(
+        90deg,
+        #00d9ff,
+        #7145ff,
+        #ff4fd8
+    );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#8996b4;
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.primary-btn{
+    display:inline-block;
+
+    padding:15px 24px;
+
+    color:white;
+    text-decoration:none;
+
+    border-radius:13px;
+
+    font-weight:bold;
+
+    background:linear-gradient(
+        90deg,
+        #00a9ff,
+        #7040ff
+    );
+
+    box-shadow:0 12px 35px #006eff25;
+
+    transition:.3s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-4px);
+}
+
+.secondary-btn{
+    display:inline-block;
+
+    padding:15px 24px;
+
+    margin-left:10px;
+
+    color:#aebbd2;
+    text-decoration:none;
+
+    border:1px solid #ffffff15;
+
+    border-radius:13px;
+
+    transition:.3s;
+}
+
+.secondary-btn:hover{
+    border-color:#00d9ff55;
+    color:#00d9ff;
+}
+
+/* CITY VISUAL */
+
+.city-visual{
+    width:440px;
+    height:440px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.orbit{
+    position:absolute;
+
+    width:360px;
+    height:360px;
+
+    border:1px solid #00d9ff22;
+
+    border-radius:50%;
+
+    animation:rotate 15s linear infinite;
+}
+
+.orbit2{
+    width:270px;
+    height:270px;
+
+    border-color:#7040ff35;
+
+    animation-duration:10s;
+    animation-direction:reverse;
+}
+
+@keyframes rotate{
+    from{
+        transform:rotate(0);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.core{
+
+    width:155px;
+    height:155px;
+
+    border-radius:40px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101c42,
+            #080d22
+        );
+
+    border:1px solid #ffffff18;
+
+    box-shadow:
+        0 0 70px #00d9ff18;
+
+    z-index:2;
+}
+
+.core-icon{
+    font-size:55px;
+}
+
+.core h3{
+    margin-top:8px;
+}
+
+/* CITY SECTION */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:90px 25px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:43px;
+    margin-bottom:12px;
+}
+
+.section-title p{
+    color:#7f8ca8;
+}
+
+/* BUILDINGS */
+
+.city-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.building{
+
+    min-height:180px;
+
+    padding:25px;
+
+    color:white;
+    text-decoration:none;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111a35,
+            #090d20
+        );
+
+    border:1px solid #ffffff0e;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.building:before{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    background:#00d9ff;
+
+    filter:blur(70px);
+
+    opacity:0;
+
+    right:-40px;
+    bottom:-50px;
+
+    transition:.3s;
+}
+
+.building:hover{
+
+    transform:translateY(-9px);
+
+    border-color:#00d9ff44;
+
+    box-shadow:
+        0 20px 50px #0009;
+}
+
+.building:hover:before{
+    opacity:.20;
+}
+
+.building-icon{
+    font-size:40px;
+    margin-bottom:18px;
+}
+
+.building h3{
+    margin-bottom:8px;
+}
+
+.building p{
+    color:#75829e;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* QUICK PANEL */
+
+.quick{
+
+    margin-top:70px;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #101a38,
+            #090e23
+        );
+
+    border:1px solid #ffffff0c;
+}
+
+.quick-top{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.quick-top span{
+    color:#7f8ca8;
+}
+
+.progress{
+
+    height:10px;
+
+    background:#ffffff0b;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.progress span{
+
+    display:block;
+
+    height:100%;
+
+    width:72%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00d9ff,
+            #7040ff
+        );
+
+    border-radius:20px;
+}
+
+/* FOOTER */
+
+footer{
+
+    margin-top:50px;
+
+    padding:35px;
+
+    text-align:center;
+
+    color:#5e6b87;
+
+    border-top:1px solid #ffffff0a;
+}
+
+footer strong{
+    color:#00d9ff;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .nav-links a:not(.profile-btn){
+        display:none;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding-top:130px;
+    }
+
+    .city-visual{
+        width:330px;
+        height:330px;
+    }
+
+    .orbit{
+        width:280px;
+        height:280px;
+    }
+
+    .orbit2{
+        width:210px;
+        height:210px;
+    }
+
+    .city-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px){
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .city-grid{
+        grid-template-columns:1fr;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        display:block;
+        margin:10px 0;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+<div class="logo">
+Life<span>OS</span> ⚡
+</div>
+
+<div class="nav-links">
+
+<a href="#home">Home</a>
+
+<a href="#city">City</a>
+
+<a href="#progress">Progress</a>
+
+<a href="profile.html" class="profile-btn">
+👤 Profile
+</a>
+
+</div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<div class="status">
+● CITY ONLINE
+</div>
+
+<h1>
+
+Welcome to
+<br>
+
+<span class="gradient">
+Your Future City.
+</span>
+
+</h1>
+
+<p>
+This is your personal digital world.
+Explore your mind, build goals, learn new
+things, create ideas, manage your business
+and track your journey.
+</p>
+
+<a href="#city" class="primary-btn">
+🏙️ Explore City
+</a>
+
+<a href="map.html" class="secondary-btn">
+🗺️ Open Map
+</a>
+
+</div>
+
+
+<!-- FUTURE CITY VISUAL -->
+
+<div class="city-visual">
+
+<div class="orbit"></div>
+
+<div class="orbit orbit2"></div>
+
+<div class="core">
+
+<div class="core-icon">
+🏙️
+</div>
+
+<h3>LifeOS</h3>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CITY -->
+
+<section class="section" id="city">
+
+<div class="section-title">
+
+<h2>🏙️ Explore Your City</h2>
+
+<p>
+Every building opens a different part of your digital life.
+</p>
+
+</div>
+
+
+<div class="city-grid">
+
+
+<a href="mind.html" class="building">
+
+<div class="building-icon">
+🧠
+</div>
+
+<h3>Mind Zone</h3>
+
+<p>
+Store thoughts, questions and interesting ideas.
+</p>
+
+</a>
+
+
+<a href="goals.html" class="building">
+
+<div class="building-icon">
+🎯
+</div>
+
+<h3>Goal Tower</h3>
+
+<p>
+Set goals and turn your plans into progress.
+</p>
+
+</a>
+
+
+<a href="learn.html" class="building">
+
+<div class="building-icon">
+📚
+</div>
+
+<h3>Learning Academy</h3>
+
+<p>
+Explore subjects and develop new skills.
+</p>
+
+</a>
+
+
+<a href="business.html" class="building">
+
+<div class="building-icon">
+💼
+</div>
+
+<h3>Business District</h3>
+
+<p>
+Build and organize your next business idea.
+</p>
+
+</a>
+
+
+<a href="create.html" class="building">
+
+<div class="building-icon">
+🎨
+</div>
+
+<h3>Creative Studio</h3>
+
+<p>
+Turn imagination into something real.
+</p>
+
+</a>
+
+
+<a href="ideas.html" class="building">
+
+<div class="building-icon">
+💡
+</div>
+
+<h3>Idea Lab</h3>
+
+<p>
+Discover and organize your best ideas.
+</p>
+
+</a>
+
+
+<a href="progress.html" class="building">
+
+<div class="building-icon">
+📊
+</div>
+
+<h3>Progress Center</h3>
+
+<p>
+See how your personal city is developing.
+</p>
+
+</a>
+
+
+<a href="habits.html" class="building">
+
+<div class="building-icon">
+🌱
+</div>
+
+<h3>Habit Garden</h3>
+
+<p>
+Grow positive routines one day at a time.
+</p>
+
+</a>
+
+
+<a href="ai.html" class="building">
+
+<div class="building-icon">
+🤖
+</div>
+
+<h3>AI Center</h3>
+
+<p>
+Your future digital assistant.
+</p>
+
+</a>
+
+
+<a href="map.html" class="building">
+
+<div class="building-icon">
+🗺️
+</div>
+
+<h3>City Map</h3>
+
+<p>
+See the complete LifeOS world.
+</p>
+
+</a>
+
+
+</div>
+
+</section>
+
+
+<!-- PROGRESS -->
+
+<section class="section" id="progress">
+
+<div class="section-title">
+
+<h2>⚡ City Status</h2>
+
+<p>
+Your LifeOS journey at a glance.
+</p>
+
+</div>
+
+
+<div class="quick">
+
+<div class="quick-top">
+
+<div>
+<h3>City Development</h3>
+<span>Your current progress</span>
+</div>
+
+<strong>72%</strong>
+
+</div>
+
+<div class="progress">
+<span></span>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+<strong>LifeOS</strong>
+— Build your future, one idea at a time.
+</p>
+
+<br>
+
+<p>
+© 2026 LifeOS • Created by Prateek
+</p>
+
+</footer>
+
+
+<script>
+
+/* CHECK LOGIN */
+
+const user =
+localStorage.getItem("lifeosUser");
+
+const guest =
+localStorage.getItem("lifeosGuest");
+
+/*
+If you want to force login,
+remove the // from the lines below.
+
+if(!user && !guest){
+    window.location.href="login.html";
+}
+*/
+
+</script>
+
+</body>
+</html>
