@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LifeOS | Mind Zone</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body:before{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:#673cff;
+    filter:blur(180px);
+    opacity:.18;
+    top:-150px;
+    left:-150px;
+    z-index:-2;
+}
+
+body:after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:#00d9ff;
+    filter:blur(180px);
+    opacity:.12;
+    right:-150px;
+    bottom:-150px;
+    z-index:-2;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    padding:17px 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:rgba(5,8,22,.78);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid #ffffff0c;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#00d9ff;
+}
+
+.back{
+    color:#aeb9cf;
+    text-decoration:none;
+
+    padding:10px 17px;
+
+    border:1px solid #ffffff12;
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+.back:hover{
+    color:#00d9ff;
+    border-color:#00d9ff55;
+}
+
+/* HERO */
+
+.hero{
+    padding:140px 7% 70px;
+
+    min-height:90vh;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:50px;
+
+    align-items:center;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.badge{
+    display:inline-block;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    color:#00d9ff;
+
+    background:#00d9ff0c;
+
+    border:1px solid #00d9ff25;
+
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(50px,7vw,80px);
+
+    line-height:.98;
+
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:
+        linear-gradient(
+            90deg,
+            #00d9ff,
+            #7545ff,
+            #ff4fd8
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#8996b4;
+
+    font-size:18px;
+
+    line-height:1.7;
+
+    margin-bottom:30px;
+}
+
+/* IMAGE */
+
+.hero-image{
+    height:480px;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    border:1px solid #ffffff15;
+
+    box-shadow:
+        0 30px 80px #0008;
+}
+
+.hero-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.hero-image:hover img{
+    transform:scale(1.05);
+}
+
+.image-label{
+
+    position:absolute;
+
+    bottom:20px;
+    left:20px;
+    right:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:rgba(5,8,22,.72);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid #ffffff18;
+}
+
+.image-label h3{
+    margin-bottom:5px;
+}
+
+.image-label p{
+    color:#b4bfd2;
+    font-size:13px;
+}
+
+/* SECTION */
+
+.section{
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:80px 25px;
+}
+
+.title{
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+.title h2{
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#7e8ba7;
+}
+
+/* IDEA BOX */
+
+.idea-box{
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111a37,
+            #090d21
+        );
+
+    border:1px solid #ffffff10;
+
+    box-shadow:0 20px 60px #0005;
+}
+
+.idea-box h3{
+    margin-bottom:12px;
+}
+
+textarea{
+
+    width:100%;
+
+    min-height:150px;
+
+    resize:vertical;
+
+    padding:18px;
+
+    color:white;
+
+    background:#ffffff06;
+
+    border:1px solid #ffffff12;
+
+    border-radius:15px;
+
+    outline:none;
+
+    font-size:16px;
+}
+
+textarea:focus{
+    border-color:#00d9ff66;
+}
+
+textarea::placeholder{
+    color:#64718d;
+}
+
+.idea-buttons{
+    margin-top:15px;
+
+    display:flex;
+
+    gap:12px;
+}
+
+button{
+
+    padding:13px 20px;
+
+    border:0;
+
+    border-radius:11px;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00a9ff,
+            #7040ff
+        );
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+
+.clear{
+    background:#ffffff0a;
+    border:1px solid #ffffff12;
+}
+
+/* MIND CARDS */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+}
+
+.card{
+
+    padding:28px;
+
+    border-radius:20px;
+
+    background:#ffffff05;
+
+    border:1px solid #ffffff0d;
+
+    transition:.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-7px);
+
+    border-color:#00d9ff44;
+
+    background:#ffffff08;
+}
+
+.card-icon{
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#7f8ca7;
+
+    line-height:1.6;
+}
+
+/* CITY PHOTO */
+
+.city-photo{
+
+    margin-top:50px;
+
+    height:360px;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    border:1px solid #ffffff12;
+}
+
+.city-photo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.city-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    padding:35px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(5,8,22,.9)
+        );
+}
+
+.city-overlay h2{
+    font-size:35px;
+}
+
+.city-overlay p{
+    color:#b1bdd2;
+
+    margin-top:8px;
+}
+
+/* FOOTER */
+
+footer{
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#5e6b87;
+
+    border-top:1px solid #ffffff0a;
+
+    margin-top:50px;
+}
+
+footer strong{
+    color:#00d9ff;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+    .hero{
+        grid-template-columns:1fr;
+
+        padding-top:125px;
+    }
+
+    .hero-image{
+        height:380px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .idea-buttons{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+<div class="logo">
+Life<span>OS</span> ⚡
+</div>
+
+<a href="index.html" class="back">
+← Back to City
+</a>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+🧠 MIND ZONE
+</div>
+
+<h1>
+
+Think.
+<br>
+
+<span class="gradient">
+Imagine.
+</span>
+<br>
+
+Create.
+
+</h1>
+
+<p>
+Welcome to the Mind Zone — a place for your
+thoughts, questions, ideas and imagination.
+Turn random thoughts into something useful.
+</p>
+
+<a href="#ideas" style="
+display:inline-block;
+padding:15px 24px;
+background:linear-gradient(90deg,#00a9ff,#7040ff);
+border-radius:13px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+">
+✨ Open Idea Space
+</a>
+
+</div>
+
+
+<!-- REAL PHOTO -->
+
+<div class="hero-image">
+
+<img
+src="https://f.maformation.fr/edito/sites/3/2021/04/graphiste.jpeg"
+alt="Creative person working at a desk"
+>
+
+<div class="image-label">
+
+<h3>💭 Creative Thinking</h3>
+
+<p>
+A real creative workspace to inspire new ideas.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- IDEA SPACE -->
+
+<section class="section" id="ideas">
+
+<div class="title">
+
+<h2>💡 Your Idea Space</h2>
+
+<p>
+Write anything that comes to your mind.
+</p>
+
+</div>
+
+
+<div class="idea-box">
+
+<h3>What's on your mind?</h3>
+
+<br>
+
+<textarea
+id="idea"
+placeholder="Write your idea here..."
+></textarea>
+
+<div class="idea-buttons">
+
+<button onclick="saveIdea()">
+💾 Save Thought
+</button>
+
+<button
+class="clear"
+onclick="clearIdea()">
+🗑️ Clear
+</button>
+
+</div>
+
+<p
+id="saved"
+style="
+margin-top:15px;
+color:#00d9ff;
+">
+</p>
+
+</div>
+
+</section>
+
+
+<!-- MIND FEATURES -->
+
+<section class="section">
+
+<div class="title">
+
+<h2>🧠 Mind Toolkit</h2>
+
+<p>
+Small tools for organizing your thinking.
+</p>
+
+</div>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+💡
+</div>
+
+<h3>Capture Ideas</h3>
+
+<p>
+Never lose an interesting idea again.
+Write it down and return to it later.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🎯
+</div>
+
+<h3>Focus</h3>
+
+<p>
+Take one idea and turn it into a clear,
+simple next step.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+🌱
+</div>
+
+<h3>Grow Ideas</h3>
+
+<p>
+Good ideas can become projects,
+skills, stories or businesses.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- REAL CITY PHOTO -->
+
+<section class="section">
+
+<div class="title">
+
+<h2>🌃 Think Beyond Today</h2>
+
+<p>
+Your imagination can take you anywhere.
+</p>
+
+</div>
+
+
+<div class="city-photo">
+
+<img
+src="https://images.unsplash.com/photo-1533955153796-2ac030a3c052?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=2000"
+alt="City skyline at night"
+>
+
+<div class="city-overlay">
+
+<h2>Your ideas can build a new world.</h2>
+
+<p>
+Dream bigger. Think differently.
+Build your future.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+<strong>LifeOS</strong>
+— Mind Zone
+</p>
+
+<br>
+
+<p>
+© 2026 LifeOS • Created by Prateek
+</p>
+
+</footer>
+
+
+<script>
+
+/* SAVE IDEA */
+
+function saveIdea(){
+
+let idea =
+document.getElementById("idea").value;
+
+if(idea.trim()===""){
+
+alert("Please write an idea first.");
+
+return;
+
+}
+
+localStorage.setItem(
+"lifeosIdea",
+idea
+);
+
+document.getElementById("saved").innerText =
+"✨ Your thought has been saved on this device.";
+
+}
+
+
+/* CLEAR */
+
+function clearIdea(){
+
+document.getElementById("idea").value="";
+
+document.getElementById("saved").innerText="";
+
+}
+
+
+/* LOAD SAVED IDEA */
+
+window.onload=function(){
+
+let saved =
+localStorage.getItem("lifeosIdea");
+
+if(saved){
+
+document.getElementById("idea").value=saved;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
